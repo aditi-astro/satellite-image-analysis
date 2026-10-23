@@ -1,40 +1,82 @@
 # Satellite Image Analysis
 
-A Python-based Earth observation project focused on satellite imagery processing, scientific data analysis, and visualization.
+A Python-based Earth observation project using Sentinel-2 satellite imagery to explore vegetation patterns near Kanpur, India.
 
-## Project Objective
+## Project Overview
 
-The goal of this project is to build a reproducible Python workflow for analyzing open satellite imagery and exploring how image-processing techniques can support environmental monitoring.
+This project demonstrates a basic remote-sensing workflow using multi-spectral satellite data. Sentinel-2 Level-2A imagery is accessed through the Microsoft Planetary Computer STAC API and analyzed in Python.
 
-## Planned Work
+## Completed Work
 
-- Load and inspect satellite imagery using Python.
-- Generate true-color and false-color visualizations.
-- Calculate the Normalized Difference Vegetation Index (NDVI) from suitable multi-spectral imagery.
-- Explore spatial patterns and changes in vegetation.
-- Document the analysis with clear plots, methods, and reproducible code.
+- Searched for Sentinel-2 L2A scenes using geographic bounds, acquisition dates, and cloud-cover criteria.
+- Selected a scene acquired on 13 December 2025 with approximately 3.69% reported cloud cover.
+- Used Rasterio to read satellite bands through a small window to limit memory usage.
+- Generated satellite imagery visualizations using visible bands.
+- Calculated the Normalized Difference Vegetation Index (NDVI) using the red and near-infrared bands.
+- Visualized the NDVI distribution using a histogram and a range-based bar chart.
+- Calculated summary statistics and the percentage of pixels in selected NDVI ranges.
+
+## Preliminary Results
+
+For the selected 512 × 512 pixel overview containing 262,144 valid pixels:
+
+- Mean NDVI: approximately 0.158
+- Median NDVI: approximately 0.149
+- Standard deviation: approximately 0.085
+- Pixels with NDVI from 0.1 to 0.2: 44.25%
+- Pixels with NDVI from 0.2 to 0.4: 27.86%
+- Pixels with NDVI from 0.4 to 1.0: 0.74%
+- Pixels with NDVI below 0.1: 27.15%
+
+These statistics describe the selected image overview, not the entirety of Kanpur.
 
 ## Tools and Technologies
 
 - Python
-- NumPy and Matplotlib
-- Rasterio and GeoPandas
-- Jupyter Notebook
+- NumPy
+- Matplotlib
+- Rasterio
+- pystac-client
+- Microsoft Planetary Computer STAC API
+- Sentinel-2 Level-2A imagery
+- Google Colab
 - Git and GitHub
 
-## Project Status
+## Methodology
 
-**In progress.** The data source, processing workflow, and results will be documented as the project develops.
+NDVI is calculated as:
 
-## Intended Applications
+**NDVI = (NIR − Red) / (NIR + Red)**
 
-Earth observation, satellite image processing, environmental monitoring, and geospatial data analysis.
+For Sentinel-2 imagery, Band 8 (B08) provides near-infrared data and Band 4 (B04) provides red-band data.
+
+## Limitations
+
+- The analysis uses one acquisition date and does not establish seasonal trends.
+- NDVI values alone cannot definitively identify land-cover classes.
+- Results are based on a 512 × 512 pixel overview of the selected study area.
+- Surface moisture, soil background, atmospheric effects, and vegetation conditions can influence NDVI.
+
+## Future Work
+
+- Compare vegetation indices across multiple acquisition dates.
+- Improve true-colour and false-colour visualizations.
+- Investigate spatial patterns in vegetation.
+- Explore land-cover classification and additional remote-sensing indices.
 
 ## Reproducibility
 
-The repository will include the analysis code, setup instructions, data-source references, and visual outputs. Publicly available datasets will be used, with source attribution.
+The analysis notebook is available here:
+
+[`01_satellite_image_analysis.ipynb`](./01_satellite_image_analysis.ipynb)
+
+The notebook uses publicly available satellite imagery. Re-running it may require an internet connection and installation of the required Python packages.
+
+## Data Source
+
+- [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/)
+- [Sentinel-2 documentation — European Space Agency](https://sentinels.copernicus.eu/web/sentinel/missions/sentinel-2)
 
 ## Author
 
-Aditi Singh  
-Physics | Materials Science and Engineering | Scientific Computing
+Aditi Singh
